@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+html{
+  font-family: sans-serif;
+  background: url("../src/assets/pexels-frans-van-heerden-632522.jpg");
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+  -webkit-background-size:cover;
+  -o-background-size:cover;
+  -moz-background-size:cover;
+  background-size: cover;
+}
+
+html, body { height: 100%; font-family: Georgia, serif;}
+body { margin: 0;}
+
+.mat-typography h1 {
+  font-family: Georgia, serif;
+}
+
+.mat-typography {
+  font-family: Georgia, serif;
+}
+
+.mat-button {
+  font-family: Georgia, serif;
+}
+
+.mat-table {
+  font-family: Georgia, serif;
+}
+
+.mat-input-element {
+  font-family: Georgia, serif;
+}
+
+.mat-form-field {
+  font-family: Georgia, serif;
+}
+
+.mat-radio-button {
+  font-family: Georgia, serif;
+}
+
+.mat-raised-button {
+  font-family: Georgia, serif;
+}
+
+.mat-option {
+  font-family: Georgia, serif;
+}
+
+.mat-checkbox {
+  font-family: Georgia, serif;
+}
+
+.mat-card {
+  font-family: Georgia, serif;
+}
+
+.mat-select {
+  font-family: Georgia, serif;
+}
+
+body {
+  
+  background-image: url("../src/assets/pexels-frans-van-heerden-632522.jpg");
+  background-size: cover;
+  min-height: 100%;
+  width: 100%;
+  
+}
+
+.guest-background {
+  box-sizing: border-box;
+}
+
+.receptionist-background {
+  box-sizing: border-box;
+}
+
+.snackbar{
+  background: rgba(0, 0, 0, 0.63);
+}
+

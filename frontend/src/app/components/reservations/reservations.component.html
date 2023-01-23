@@ -1,0 +1,246 @@
+<div class = "navbar-container">
+    <div class="top">
+        <div class="title">
+            <h1>Rezervacije</h1>
+        </div>
+        <hr>
+        <div class="navbar">
+            <button mat-button routerLink="">Home</button>
+            <button mat-button (click)="hideShowRoom()">Sobe</button>
+            <button mat-button (click)="hideShowConf()">Dvorane</button>
+            <button mat-button (click)="hideShowResList()">Popis rezervacija</button>
+            <button mat-button (click)="hideGuestList()">Popis gostiju</button>
+            <button mat-button (click)="hideRoomVis()"> Popis zauzetih soba </button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    
+    <div class="room-res" *ngIf="roomVis">
+            <mat-card>
+            <form [formGroup]="addUsers" (ngSubmit)="handleAddUser(addUsers.value.name, addUsers.value.password)">
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Korisničko ime" formControlName="name" required>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <input matInput type="password" inputmode="tel" placeholder="Lozinka" formControlName="password" required>
+                </mat-form-field>
+                <button mat-raised-button id="addUser" type="submit" [disabled] = "addUsers.invalid">Dodaj korisnika</button>
+            </form>
+            <div class="userList">
+                <span>Dodani korisnici:</span>
+                <ul *ngFor="let user of resUsers">
+                    <li class="listRow">
+                        {{user.name}}
+                        <button mat-raised-button id="removeUserBtn" (click) = "removeUser(user)">Ukloni</button>
+                    </li>
+                </ul>
+            </div>
+            <form [formGroup]="roomRes" (ngSubmit)="submitRoom(roomRes.value)">
+            <mat-form-field appearance="fill">
+                <mat-label>Vrsta sobe</mat-label>
+                <mat-select matNativeControl name="roomType" formControlName="type" required>
+                    <mat-option value="jednokrevetna">Jednokrevetna</mat-option>
+                    <mat-option value="dvokrevetna">Dvokrevetna</mat-option>
+                    <mat-option value="obiteljska">Obiteljska</mat-option>
+                    <mat-option value="apartman">Apartman</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Datum prijave</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dateFrom" required>
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Datum odjave</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="dateTo" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <div class="meals">
+                <mat-label>Odabir obroka</mat-label>
+                <mat-checkbox formControlName="lunch">
+                    Rucak
+                </mat-checkbox>
+                <mat-checkbox formControlName="dinner">
+                    Vecera
+                </mat-checkbox>
+            </div>
+            <div mat-dialog-actions>
+                <button mat-raised-button type="submit" [disabled]="roomRes.invalid || !userAdded">Rezerviraj</button>
+            </div>
+        </form>
+        </mat-card>
+    </div>
+
+    <div class="room-res" *ngIf="confRoomVis">
+        <mat-card>        
+        <form [formGroup]="confRes" (ngSubmit)="submitConf(confRes.value)">
+            <mat-form-field appearance="standard">
+                <input matInput inputmode="tel" placeholder="Korisničko ime" formControlName="name" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Dvorana</mat-label>
+                <mat-select matNativeControl name="confType" formControlName="type" required>
+                    <mat-option value="dvorana">Dvorana</mat-option>
+                    <mat-option value="spojena">Spojene dvorane</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Datum prijave</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date" required>
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div mat-dialog-actions>
+                <button mat-raised-button type="submit" [disabled]="!confRes.valid">Rezerviraj</button>
+            </div>
+        </form>
+        </mat-card>
+    </div>
+
+    <div class="res-list" *ngIf="resListVis">
+        <mat-card>
+            <mat-card-title>Rezervacije</mat-card-title>
+            <mat-card-content>
+                <table mat-table [dataSource]="this.reservations">
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="username">
+                        <th mat-header-cell *matHeaderCellDef> Korisničko ime </th>
+                        <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="dateFrom">
+                        <th mat-header-cell *matHeaderCellDef> Datum početka </th>
+                        <td mat-cell *matCellDef="let element"> {{element.startDate}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="dateTo">
+                        <th mat-header-cell *matHeaderCellDef> Datum kraja </th>
+                        <td mat-cell *matCellDef="let element"> {{element.endDate}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="remove">
+                        <th mat-header-cell *matHeaderCellDef> Ukloni </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-raised-button (click)="removeReservation(element)">
+                                Ukloni
+                            </button>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="bill">
+                        <th mat-header-cell *matHeaderCellDef> Izdaj račun </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-raised-button (click)="handleBill(element.username)">
+                                Račun
+                            </button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card class="bill-view" *ngIf="billView && this.billData !== undefined">
+            <mat-card-title> Račun rezervacije {{this.billData.brojRezervacije}} </mat-card-title>
+            <mat-card-content>
+                <ng-container>
+                    Iznosi:
+                    <p>
+                        Dodatne usluge: 
+                        <mat-hint>{{this.billData.iznos['Dodatne usluge']}} €</mat-hint>
+                    </p>
+                    <p>
+                        Noćenje: 
+                        <mat-hint>{{this.billData.iznos['Noćenje']}} €</mat-hint>
+                    </p>
+                    <p>
+                        Minibar: 
+                        <mat-hint>{{this.billData.iznos['Minibar']}} €</mat-hint>
+                    </p>
+                </ng-container>
+                <ng-container>
+                    <p>
+                        Sveukupno: {{this.billData.price}} €
+                    </p>
+                </ng-container>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="guest-list" *ngIf="guestVis">
+        <mat-card>
+            <mat-card-title>Gosti</mat-card-title>
+            <mat-card-content>
+                <table mat-table [dataSource]="this.guests">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Ime </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="surname">
+                        <th mat-header-cell *matHeaderCellDef> Prezime </th>
+                        <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="oib">
+                        <th mat-header-cell *matHeaderCellDef> OIB </th>
+                        <td mat-cell *matCellDef="let element"> {{element.oib}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="address">
+                        <th mat-header-cell *matHeaderCellDef> Adresa </th>
+                        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="phoneNumber">
+                        <th mat-header-cell *matHeaderCellDef> Telefon </th>
+                        <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="username">
+                        <th mat-header-cell *matHeaderCellDef> Korisničko ime </th>
+                        <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="accommodatingUnitName">
+                        <th mat-header-cell *matHeaderCellDef> Soba </th>
+                        <td mat-cell *matCellDef="let element"> {{element.accommodatingUnitName}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayGuest"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayGuest;"></tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="room-list" *ngIf="roomlistVis">
+        <mat-card>
+            <mat-card-title>Sobe</mat-card-title>
+            <mat-card-content>
+                <table mat-table [dataSource]="this.rooms">
+                    <ng-container matColumnDef="unitType">
+                        <th mat-header-cell *matHeaderCellDef> Tip </th>
+                        <td mat-cell *matCellDef="let element"> {{element.unitType}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="capacity">
+                        <th mat-header-cell *matHeaderCellDef> Kapacitet </th>
+                        <td mat-cell *matCellDef="let element"> {{element.capacity}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Broj </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef> Cijena </th>
+                        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayRooms"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayRooms;"></tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    
+</div>

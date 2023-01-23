@@ -1,0 +1,58 @@
+<div class="navbar-container">
+  <div class="top">
+    <div class="title">
+      <h1>Dobrodošli u naš hotel {{getUsername()}}!</h1>
+    </div>
+    <hr>
+    <div class="navbar" *ngIf="!checkLoggedIn()">
+      <button mat-button class="navbar-btn" routerLink="login">Login</button>
+    </div>
+    <div class="navbar-wrapper">
+      <div class="navbar" *ngIf="checkLoggedIn()">
+        <button mat-button class="navbar-btn" *ngIf="ifGuest()" routerLink="guest">Gost</button>
+        <button mat-button class="navbar-btn" *ngIf="ifReceptionist()" routerLink="reservations">Rezervacije</button>
+        <button mat-button class="navbar-btn" *ngIf="ifReceptionist()" routerLink="receptionist">Dodaj gosta</button>
+        <button mat-button class="navbar-btn" *ngIf="ifAdmin()" routerLink="admin_panel">Admin</button>
+        <button mat-button class="navbar-btn" *ngIf="ifOwner()" routerLink="owner">Vlasnik</button>
+        <button mat-button class="navbar-btn" *ngIf="ifHousekeeper()" routerLink="housekeeping">Spremačica</button>
+
+      </div>
+      <div class="navbar" *ngIf="checkLoggedIn()">
+        <button mat-button class="navbar-btn" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="home-screen">
+  <div class="widget">
+    <weather-widget></weather-widget>
+    <br>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          O nama
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          Dobrodošli u naš hotel <br>"{{this.info.hotelName}}".<br>
+        </p>
+        <p>
+          Za više informacija pokušajte nas kontaktirati preko:<br>
+          <br>
+                      Address: {{this.info.address}}<br>
+                      Email: {{this.info.email}}<br>
+                      Fax: {{this.info.fax}}<br>
+                    </p>
+        <p>
+        Hvala!
+        </p>
+        <br>
+      </mat-card-content>
+    </mat-card>
+    <!--<h1 *ngIf="checkLoggedIn()"> Hello {{getUsername()}}</h1>-->
+  </div>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

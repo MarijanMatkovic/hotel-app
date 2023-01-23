@@ -1,0 +1,14 @@
+<div class="home-screen">
+  <div class="login-box">
+    <h1>Login</h1>
+    <form #loginForm="ngForm" (ngSubmit)="handleLoginClick(loginForm.value)">
+      <label>Username</label>
+      <input type="text" ngModel name="username" placeholder="Enter username" #username>
+      <label>Password</label>
+      <input type="password" ngModel name="password" placeholder="Enter password" #password>
+      <input type="submit" name="submit" value="Log in">
+      <a href>Forgot Password</a>
+      <br><button mat-button routerLink="/">Home</button>
+    </form>
+  </div>
+</div>

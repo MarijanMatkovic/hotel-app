@@ -1,0 +1,120 @@
+<div class="guest-panel">
+
+  <div class = "navbar-container">
+    <div class="top">
+      <div class="title">
+          <h1>Enjoy your stay!</h1>
+        </div>
+        <hr>
+        <div class="navbar">
+          <button mat-button class="navbar-btn" routerLink="">Home</button>
+          <button mat-button class="navbar-btn" (click)="setInfo()">Moja rezervacija</button>
+          <button mat-button class="navbar-btn" (click)="setAdd()">Dodaj uslugu</button>
+          <button mat-button class="navbar-btn" (click)="setRemove()">Ukloni uslugu</button>
+        </div>
+        
+      </div>
+    </div>
+    <div class = "reservationInfo">
+    
+      <div class="infoDiv" *ngIf="info">
+        <mat-card>
+          <mat-card-title [textContent]="'Info'"></mat-card-title>
+          <mat-card-header [textContent]="'Broj sobe: '+resInfo.accommodatingUnit">          
+          </mat-card-header>
+          <mat-card-content>Datum dolaska: {{resInfo.start}}</mat-card-content>
+          <mat-card-content>Datum odlaska: {{resInfo.end}}</mat-card-content>
+          <mat-card-header [textContent]="'Usluge'"></mat-card-header>
+          <ng-container *ngFor="let s of resInfo.services">
+            <br>
+              <mat-card-content>Naziv usluge: {{s.serviceName}}</mat-card-content>
+              <mat-card-content>Datumi</mat-card-content>
+              <ng-container>
+                <ng-container *ngFor="let d of s.dates">
+                  <mat-card-content>{{d}}</mat-card-content>
+                </ng-container>
+              </ng-container>
+          </ng-container>
+        </mat-card>
+      </div>
+
+      <div *ngIf="add">
+        <mat-card>
+        <form [formGroup]="serviceForm" (ngSubmit)="addService(serviceForm.value)">
+          <div class="add-article-container">
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Tip</mat-label>
+                  <mat-select matNativeControl name="serviceName" formControlName="serviceName" required>
+                    <mat-option *ngFor="let t of this.types" value="{{t}}">{{t}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Usluga od</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="dateFrom" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker">
+                      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Usluga do</mat-label>
+                  <input matInput [matDatepicker]="picker1" formControlName="dateTo" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker1">
+                      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+            </div>
+            <div mat-dialog-actions>
+              <button mat-raised-button type="submit" [disabled]="!serviceForm.valid" class="add-button">Dodaj</button>
+            </div>
+        </form>
+        </mat-card>
+      </div>
+
+      <div *ngIf="remove">
+        <mat-card>
+          <form [formGroup]="removeForm" (ngSubmit)="removeService(removeForm.value)">
+            <div class="add-article-container">
+  
+                  <mat-form-field appearance="fill">
+                    <mat-label>Tip</mat-label>
+                    <mat-select matNativeControl name="serviceName" formControlName="serviceName" required>
+                      <mat-option *ngFor="let t of this.types" value="{{t}}">{{t}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+  
+                  <mat-form-field appearance="fill">
+                    <mat-label>Usluga od</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateFrom" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+  
+                  <mat-form-field appearance="fill">
+                    <mat-label>Usluga do</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="dateTo" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker1">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+  
+              </div>
+              <div mat-dialog-actions>
+                <button mat-raised-button type="submit" [disabled]="!removeForm.valid" class="add-button">Ukloni</button>
+              </div>
+          </form>
+        </mat-card>
+      </div>
+
+  </div>
+  <router-outlet></router-outlet>
+  
+</div>

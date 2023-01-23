@@ -1,0 +1,114 @@
+.guest-background {
+    width: 100%;
+    height: 100%;
+    padding-top: 1em;
+    padding-left: 0.5em;
+}
+.top{
+    background-color: white;
+    padding: 20px;
+    width: 98%;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 1em;
+}
+.navbar a{
+    text-decoration: none;
+    color: teal;
+    font-size: 2em;
+    font-weight: lighter;
+}
+.navbar-item{
+    margin-right: 1em;
+}
+.navbar-container{
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+}
+.title h1{
+    font-size: 50px;
+    font-weight: bold;
+    color: teal;
+}
+.widget{
+  margin: 2em;
+}
+
+h1{
+text-align: center;
+margin: 0;
+padding: 0 0 20px;
+font-size: 22px;
+}
+
+.top{
+background-color: white;
+padding: 20px;
+width: 98%;
+}
+.title h1{
+font-size: 50px;
+font-weight: bold;
+color: teal;
+}
+.navbar-container{
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+}
+.navbar a{
+    text-decoration: none;
+    color: teal;
+    font-size: 2em;
+    font-weight: lighter;
+}
+.navbar-item{
+    margin-right: 1em;
+}
+
+button{
+    background: none!important;
+    border: none;
+    text-decoration: none;
+    color: teal;
+    font-size: 2em;
+    font-weight: lighter;
+    padding-top: 0px;
+    padding-bottom: 0;
+    size: auto;
+}
+
+.mat-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mat-card-title {
+    text-align: center;
+}
+
+.mat-card-header {
+    justify-content: center;
+}
+
+.mat-card-content {
+    text-align: center;
+    height: 5px;
+}
+
+.reservationInfo {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.infoDiv {
+    padding: 5px;
+}

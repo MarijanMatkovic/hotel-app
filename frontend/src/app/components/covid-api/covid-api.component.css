@@ -1,0 +1,28 @@
+.covid-container {
+    size: auto;
+    display: block;
+    border-radius: 15px;
+    width: 10rem;
+    height: 7rem;
+    background: rgba(0,0,0,0.63);
+    color: white;
+    font-family: monospace;
+    padding: 10px;
+}
+.covid-row {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+}
+#a.covid-row {
+    font-size: 1rem;
+    margin-top: 5px;
+}
+#b.covid-row {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+#c.covid-row {
+    font-size: 1rem;
+    margin-top: 10px;
+}

@@ -1,0 +1,50 @@
+<div class = "navbar-container">
+  <div class="top">
+      <div class="title">
+        <h1>Recepcija</h1>
+      </div>
+      <hr>
+      <div class="navbar">
+        <button mat-button class="navbar-btn" routerLink="">Home</button>
+        <button mat-button class="navbar-btn" (click)="setNewGuestVis()">Novi gost</button>
+      </div>
+  </div>
+</div>
+<div class = "receptionist-container" *ngIf="newGuestVis">
+    <div class="login-container">
+        <mat-card>
+            <mat-card-title>Novi gost</mat-card-title>
+            <form [formGroup]="regForm" (ngSubmit)="handleRegister(regForm.value)" class="new-guest" name="forma">
+              <mat-form-field appearance="standard">
+                  <input matInput inputmode="tel" placeholder="Korisničko ime" formControlName="username" required>
+              </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Ime" formControlName="name" required>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Prezime" formControlName="surname" required>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Adresa" formControlName="address" required>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="OIB" formControlName="oib" required>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Broj telefona" formControlName="phoneNumber" required>
+                </mat-form-field>
+              <mat-form-field appearance="standard">
+                  <input matInput inputmode="tel" placeholder="Lozinka" formControlName="password" required>
+              </mat-form-field>
+              <mat-select-country matInput placeHolder="Odaberi državu" formControlName="country" ></mat-select-country>
+              <div mat-dialog-actions>
+                  <button mat-raised-button type="submit" [disabled]="!regForm.valid">Dodaj</button>
+                </div>
+             </form>
+        </mat-card>
+    </div>
+</div>
+
+  <div *ngIf="showDialog()">
+    <covid-api country="{{getCountry()}}" ></covid-api>
+  </div>

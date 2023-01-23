@@ -1,0 +1,16 @@
+<div class = "weather-container">
+    <div *ngIf="WeatherData.isDay" class = "weather-row">
+        <img class = "sun" src="../../../assets/sunicon.png">
+    </div>
+    <div *ngIf="!WeatherData.isDay" class = "weather-row">
+        <img class = "moon" src="../../../assets/moon.png">
+    </div>
+    <div *ngIf="WeatherData.main.humidity > 66" class="weather-row cloudDiv">
+        <img class = "cloud" src="../../../assets/clouds.png">
+    </div>
+    <div class = "weather-row" id="a">{{WeatherData.temp_celcius}}°</div>
+    <div class = "weather-row" id="b">{{WeatherData.temp_min}}° / {{WeatherData.temp_max}}°</div>
+    <div class = "weather-row" id="c">Feels like: {{WeatherData.temp_feels_like}}°</div> 
+    <div class = "weather-row" id="d">{{WeatherData.name}}</div>
+    <div class = "weather-row" id="e">Humidity: {{WeatherData.main.humidity}}%</div> 
+</div>

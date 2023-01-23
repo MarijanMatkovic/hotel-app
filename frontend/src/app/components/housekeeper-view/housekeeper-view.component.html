@@ -1,0 +1,86 @@
+<div class="housekeeper-panel">
+  <div class = "navbar-container">
+    <div class="top">
+        <div class="title">
+          <h1>Spremačica</h1>
+        </div>
+        <hr>
+        <div class="navbar">
+
+          <button mat-button class="navbar-item" routerLink="">Home</button>
+        </div>
+    </div>
+  </div>
+  <br>
+  <div class="container">
+    <mat-card>
+    <form [formGroup]="addArticles" (ngSubmit)="handleAdd(addArticles.value)">
+      <div class="add-article-container">
+            <h1>Izvještaj sobe</h1>
+            <mat-form-field appearance="fill">
+              <mat-label> Soba </mat-label>
+              <mat-select matNativeControl name="rooms" formControlName="room" required>
+                <mat-option *ngFor="let r of this.rooms" value="{{r.name}}">{{r.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Artikl</mat-label>
+              <mat-select matNativeControl name="minibarList" formControlName="article" required>
+                <mat-option *ngFor="let a of this.articles" value="{{a.name}}">{{a.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <mat-label>Količina</mat-label>
+              <input matInput inputmode="numeric" placeholder="Količina" formControlName="amount" required>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+        <button mat-raised-button type="submit" [disabled]="!addArticles.valid" class="add-button">Dodaj</button>
+    </div>
+
+        <div class="options">
+            <hr>
+            <div class="centered-label">
+                <mat-label>Stanje sobe:</mat-label>
+            </div>
+            <div class="checkboxes">
+                <mat-checkbox formControlName="cleaned">
+                    Pospremljena
+                </mat-checkbox>
+                <mat-checkbox formControlName="ready">
+                    Spremna za novog gosta
+                </mat-checkbox>
+            </div>
+            <hr>
+        </div>
+
+    </form>
+   </mat-card>
+  </div>
+  <div class="container" *ngIf="minibarVis">
+    <mat-card>
+    <div class="create-form">
+      <div class="add-article-container">
+          <h1>Trenutni mini-bar:</h1>
+
+          <div *ngIf="minibarArticles > 0" class="article-label">
+              <span>Naziv artikla</span>
+              <span>Količina</span>
+              <span></span>
+          </div>
+
+          <div class="minibar-content-container" *ngFor="let item of currentMinibar | keyvalue">
+            <div *ngIf="item.value != undefined" class="chosen-articles">
+                <span>{{item.key}}</span>
+                <span>{{item.value}}</span>
+                <button mat-button (click)="remove(item.key)"> <mat-icon>delete</mat-icon> </button>
+            </div>
+          </div>
+          <button mat-button class="send-button" (click)="sendData(addArticles.value)"> Pošalji </button>
+      </div>
+    </div>
+    </mat-card>
+  </div>
+
+</div>
+

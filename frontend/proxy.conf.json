@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://hotel-app-qqu9.onrender.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

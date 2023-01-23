@@ -1,0 +1,171 @@
+.navbar-btn{
+    background: none!important;
+    border: none;
+    text-decoration: none;
+    color: teal;
+    font-size: 2em;
+    font-weight: lighter;
+    padding-top: 0px;
+    padding-bottom: 0;
+    size: auto;
+
+}
+
+.make-admin{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.edit-info{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.mat-raised-button{
+    color: teal;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-right: 1em;
+    margin-left: 1em;
+    margin-top: 1em;
+}
+
+.navbar a{
+    text-decoration: none;
+    color: teal;
+    font-size: 2em;
+    font-weight: lighter;
+
+}
+.title h1{
+    font-size: 50px;
+    font-weight: bold;
+    color: teal;
+}
+.top{
+    background-color: white;
+    padding: 20px;
+    width: 98%;
+}
+
+.form{
+    width: 10rem;
+}
+
+mat-card {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mat-card-title {
+    text-align: center;
+}
+
+.mat-card-content {
+    align-items: center;
+}
+
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+table {
+    position: relative;
+    width: 90%;
+    padding: 20px;
+}
+
+ng-container {
+    width: fit-content;
+    padding: 10px 10px;
+}
+
+th {
+    background-color: teal;
+    color: white;
+}
+
+.hotel-info {
+    display: flex;
+    justify-content: space-around;
+}
+
+tr.mat-header-row {
+    height: 46px;
+}
+
+th.mat-header-cell {
+    text-align: center;
+}
+
+tr.mat-row {
+    height: fit-content;
+    text-align: center;
+}
+
+.mat-cell {
+    padding: 5px;
+}
+
+.prices{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.prices-menu{
+    width: 10em;
+}
+
+.pricelist{
+    width: 50em;
+    display: flex;
+    justify-content: space-evenly;
+}
+mat-card{
+    width: 50em;
+    margin: 2em;
+}
+
+.units{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.bills{
+    display: flex;
+    justify-content: center;
+}
+
+.info-form{
+    display: flex;
+    justify-content: center;
+}
+
+mat-card{
+    display: flex;
+    justify-content: center;
+}
+
+.edit-info{
+    display: flex;
+    justify-content: center;
+    margin-left: 30em;
+}
+.info-btn{
+    margin: 1em;
+}

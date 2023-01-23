@@ -1,0 +1,241 @@
+<div class="owner-panel">
+    <div class="navbar-container">
+        <div class="top">
+            <div class="title">
+                <h1>Vlasnik</h1>
+            </div>
+            <hr>
+            <div class="navbar">
+                <button mat-button class="navbar-btn" routerLink="">Home</button>
+                <button mat-button class="navbar-btn" (click)="setInfoVis()">Informacije</button>
+                <button mat-button class="navbar-btn" (click)="setAdminVis()"> Administrator </button>
+                <button mat-button class="navbar-btn" (click)="setRoomVis()"> Jedinice </button>
+                <button mat-button class="navbar-btn" (click)="setPriceVis()"> Cijene </button>
+                <button mat-button class="navbar-btn" (click)="setBillVis()"> Računi </button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="hotel-info">
+        <div *ngIf="infoVis">
+            <mat-card>
+                <button mat-button class="navbar-btn" (click)="setEditMode()">Edit</button>
+            </mat-card>
+            <br>
+            <mat-card>
+                <mat-card-title>Radnici</mat-card-title>
+                <mat-card-content>
+                    <table mat-table [dataSource]="this.workers">
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Ime </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="surname">
+                            <th mat-header-cell *matHeaderCellDef> Prezime </th>
+                            <td mat-cell *matCellDef="let element"> {{element.surname}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="oib">
+                            <th mat-header-cell *matHeaderCellDef> OIB </th>
+                            <td mat-cell *matCellDef="let element"> {{element.oib}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="role">
+                            <th mat-header-cell *matHeaderCellDef> Uloga </th>
+                            <td mat-cell *matCellDef="let element">{{whatRole(element.role)}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="username">
+                            <th mat-header-cell *matHeaderCellDef> Korisničko ime </th>
+                            <td mat-cell *matCellDef="let element"> {{element.username}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+            <br>
+            <mat-card>
+                <mat-card-title>Jedinice</mat-card-title>
+                <mat-card-content>
+                    <table mat-table [dataSource]="this.units">
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Broj </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="unitType">
+                            <th mat-header-cell *matHeaderCellDef> Tip </th>
+                            <td mat-cell *matCellDef="let element"> {{whatType(element.unitType)}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="capacity">
+                            <th mat-header-cell *matHeaderCellDef> Kapacitet </th>
+                            <td mat-cell *matCellDef="let element"> {{element.capacity}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="price">
+                            <th mat-header-cell *matHeaderCellDef> Cijena </th>
+                            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayUnits"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayUnits"></tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+            <br>
+        </div>
+    </div>
+    <div class="make-admin" *ngIf="adminVis" class="units">
+        <mat-card>
+        <mat-card-title> Novi admin </mat-card-title>
+            <form [formGroup]="make" (ngSubmit)="makeAdmin(make.value)" class="pricelist">
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Korisničko ime" formControlName="username" required>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!make.valid">Postavi</button>
+                </div>
+            </form>
+        </mat-card>    
+        <mat-card>
+        <mat-card-title> Ukloni admina </mat-card-title>
+            <form [formGroup]="remove" (ngSubmit)="removeAdmin(remove.value)" class="pricelist">
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Korisničko ime" formControlName="username" required>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!remove.valid"> Ukloni </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <div class="edit-info" *ngIf="editVis">
+        <mat-card>
+            <form [formGroup]="hotelName" (ngSubmit)="editInfo(hotelName.value, 0)" class="info-form">
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Ime hotela" formControlName="hotelName" required>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!hotelName.valid" class="info-btn"> Promijeni </button>
+                </div>
+            </form>
+        </mat-card>
+        <hr>
+        <mat-card>
+            <form [formGroup]="email" (ngSubmit)="editInfo(email.value, 1)" class="info-form">
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="E-mail" formControlName="email" required>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!email.valid" class="info-btn"> Promijeni </button>
+                </div>
+            </form>
+        </mat-card>
+        <hr>
+        <mat-card>
+            <form [formGroup]="fax" (ngSubmit)="editInfo(fax.value, 2)" class="info-form">
+                <mat-form-field appearance="standard">
+                    <input matInput inputmode="tel" placeholder="Fax" formControlName="fax" required>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!fax.valid" class="info-btn"> Promijeni </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <div class="edit-info" *ngIf="roomVis" class="units">
+        <mat-card>
+            <mat-card-title> Dodavanje </mat-card-title>
+            <form [formGroup]="roomAdd" (ngSubmit)="addRoom(roomAdd.value)" class="pricelist" >
+                <mat-form-field appearance="fill">
+                    <mat-label>Tip</mat-label>
+                    <mat-select matNativeControl name="units" formControlName="unitType" required>
+                        <mat-option *ngFor="let u of this.unitTypes" value="{{u}}">{{u}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field >
+                    <input matInput inputmode="tel" placeholder="Ime sobe" formControlName="name" required>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!roomAdd.valid"> Dodaj </button>
+                </div>
+            </form>
+        </mat-card>
+        <br>
+        <mat-card>
+            <mat-card-title> Uklanjanje </mat-card-title>
+            <br>
+            <form [formGroup]="roomRemove" (ngSubmit)="removeRoom(roomRemove.value)" class="pricelist">
+                <mat-form-field appearance="fill">
+                    <mat-label>Broj sobe</mat-label>
+                    <mat-select matNativeControl name="name" formControlName="name" required>
+                        <mat-option *ngFor="let u of this.units" value="{{u.name}}">{{u.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!roomRemove.valid"> Ukloni </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <div *ngIf="priceVis" class="prices">
+<!--        <mat-card class="prices-menu">-->
+<!--            <button mat-button (click)="showMiniBarPrice()"> Minibar </button>-->
+<!--            <button mat-button (click)="showUnitPrice()"> Jedinice </button>-->
+<!--        </mat-card>-->
+        <br>
+        <mat-card>
+            <mat-card-title>Cjenik</mat-card-title>
+            <form [formGroup]="minibarEdit" (ngSubmit)="editMB(minibarEdit.value)" class="pricelist">
+                <mat-form-field appearance="fill">
+                    <mat-label> Artikl </mat-label>
+                    <mat-select matNativeControl name="type" formControlName="type" required>
+                        <mat-option *ngFor="let mp of this.minibarPrices" value="{{mp.type}}">{{mp.type}} ({{mp.price}}€) </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput inputmode="tel" placeholder="Nova cijena" formControlName="price" required>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!minibarEdit.valid"> Promijeni </button>
+                </div>
+            </form>
+        </mat-card>
+        <mat-card>
+            <mat-card-title>Cjenik smještajnih jedinica</mat-card-title>
+            <form [formGroup]="unitEdit" (ngSubmit)="editUnit(unitEdit.value)" class="pricelist">
+                <mat-form-field appearance="fill">
+                    <mat-label> Jedinica </mat-label>
+                    <mat-select matNativeControl name="type" formControlName="type" required>
+                        <mat-option *ngFor="let tp of this.typePriceSet" value="{{tp.type}}">{{tp.type}} ({{tp.price}}€) </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput inputmode="tel" placeholder="Nova cijena" formControlName="price" required>
+                </mat-form-field>
+                <div mat-dialog-actions>
+                    <button mat-raised-button type="submit" [disabled]="!unitEdit.valid"> Promijeni </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <div *ngIf="billVis" class="bills">
+        <mat-card>
+            <mat-card-title>
+                Izdani računi
+            </mat-card-title>
+                <mat-card-content>
+                    <table mat-table [dataSource]="this.bill">
+                        <ng-container matColumnDef="brojRezervacije">
+                            <th mat-header-cell *matHeaderCellDef> Broj rezervacije </th>
+                            <td mat-cell *matCellDef="let element"> {{element.brojRezervacije}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="price">
+                            <th mat-header-cell *matHeaderCellDef> Cijena € </th>
+                            <td mat-cell *matCellDef="let element"> {{element.price}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayBill"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayBill;"></tr>
+                    </table>
+                </mat-card-content>
+                <mat-card-content>
+                    Ukupno: {{this.total}} €
+                </mat-card-content>
+        </mat-card>
+    </div>
+</div>

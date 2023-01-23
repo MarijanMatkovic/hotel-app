@@ -1,0 +1,104 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 5em;
+}
+
+mat-form-field{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+th{
+    background-color: teal;
+    color: white;
+}
+th, td {
+    width: 10em;
+}
+
+button{
+    background: none!important;
+    border: none;
+    text-decoration: none;
+    color: teal;
+    font-size: 2em;
+    font-weight: lighter;
+    padding-top: 0px;
+    padding-bottom: 0;
+    size: auto;
+}
+
+.top{
+    background-color: white;
+    padding: 20px;
+    width: 98%;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-right: 1em;
+    margin-left: 1em;
+    margin-top: 1em;
+}
+
+.navbar a{
+    text-decoration: none;
+    color: teal;
+    font-size: 2em;
+    font-weight: lighter;
+
+}
+
+.navbar-item{
+    margin-right: 1em;
+}
+
+.title h1{
+    font-size: 50px;
+    font-weight: bold;
+    color: teal;
+}
+
+.meals{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+#addUser{
+    margin-left: 3em;
+}
+
+.userList{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5em;
+}
+
+#removeUserBtn{
+    font-size: 1em;
+}
+
+.listRow{
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+.rem-res{
+    display: flex;
+    justify-content: space-around;
+}
+
+#rem-res-btn{
+    margin-top: 0.5em;
+    margin-left: 1em;
+}
+
+.bill-view {
+    width: 50%;
+}

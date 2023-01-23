@@ -1,0 +1,24 @@
+.time-container {
+    background-color: rgba(0,0,0, 0.6);
+    border-radius: 50px;
+    border-width: 1px;
+    width: 6rem;
+    height: 3rem;
+    padding-top: 4px;
+}
+
+.day {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    color: rgb(255, 255, 255);
+}
+.time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+}
